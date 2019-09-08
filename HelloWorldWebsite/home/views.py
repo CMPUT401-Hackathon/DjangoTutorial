@@ -50,9 +50,11 @@ class Home(generic.DetailView):
 
         if artist_url[0:7] != '/artist':
             artist_url = '/artist/'+artist_url
-
-        artist_img = containers[0].div.img['src']
-        print(artist_img)
+        try:
+            artist_img = containers[0].div.img['src']
+            print(artist_img)
+        except:
+            artist_img = 'https://www.publicdomainpictures.net/pictures/180000/nahled/vinyl-record-isolated.jpg'
 
         related_url = base_url + artist_url + '/related'
 
@@ -80,12 +82,12 @@ class Home(generic.DetailView):
         print(fixed)
 
         try:
-            Artist.objects.create(id=initial_artist_id, name=artist_name)
+            Artist.objects.create(id=initial_artist_id, name=artist_name, image = artist_img)
         except:
             print("Object Already Exists")
 
         Q = Artist.objects.get(pk=initial_artist_id)
-
+        related = []
         for artist in fixed[:10]:
             #adjusted_name = unicodedata.normalize("NFKD", unidecode.unidecode(artist)).replace(" ", "+")
             adjusted_name = unidecode.unidecode(artist).replace(" ", "+")
@@ -103,6 +105,13 @@ class Home(generic.DetailView):
             containers = page_soup.findAll("ul", {"class":"search-results"})
             artist_url = containers[0].div.a['href']
 
+            try:
+                artist_img = containers[0].div.img['src']
+                print(artist_img)
+            except:
+                artist_img = 'https://www.publicdomainpictures.net/pictures/180000/nahled/vinyl-record-isolated.jpg'
+
+
             if artist_url[0:len(base_url)] == base_url:
                 artist_url = artist_url[len('https://www.allmusic.com/artist/'):]
 
@@ -110,7 +119,7 @@ class Home(generic.DetailView):
             #print(artist, " ", artist_id, " ")
 
             try:
-                instance = Artist.objects.create(id=artist_id, name=artist)
+                instance = Artist.objects.create(id=artist_id, name=artist, image = artist_img)
             except:
                 instance = Artist.objects.get(pk=artist_id)
 
@@ -119,8 +128,11 @@ class Home(generic.DetailView):
             except:
                 print("Object Already Exists")
 
-        all_artists = Artist.objects.all()
+        # all_artists = Artist.objects.all()
+            related.append(instance)
 
         return render(request, "home/artist.html", {
-            'Artists': all_artists,
+            'Artists': Q,
+            'Related':related
+
         })
