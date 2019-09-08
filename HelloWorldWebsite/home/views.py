@@ -132,7 +132,7 @@ class Home(generic.DetailView):
             related.append(instance)
 
         return render(request, "home/artist.html", {
-            'Artists': Q,
+            'Artist': Q,
             'Related':related
 
         })

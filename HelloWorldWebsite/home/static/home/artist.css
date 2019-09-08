@@ -126,6 +126,17 @@ div#product-card.flip180{
 .stats-container .product_name{
 	font-size:22px;
 	color:#393c45;
+
+}
+
+h4{
+	margin-top: 8px;
+	margin-bottom: 5px;
+}
+.relatedA{
+	list-style-type: none;
+	font-size: 13px;
+	color: #808080;
 }
 .stats-container p{
 	font-size:16px;
@@ -137,6 +148,10 @@ div#product-card.flip180{
 	color:#48cfad;
 	font-size:22px;
 	font-weight:600;
+}
+.artistImage {
+	width: 100%;
+	height: auto;
 }
 .image_overlay{
 	position:absolute;
