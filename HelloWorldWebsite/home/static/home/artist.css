@@ -443,3 +443,13 @@ div.shadow{
 	-webkit-transform: rotate(135deg);
 	transform: rotate(135deg);
 }
+
+
+
+#gradient
+{
+  width: 100%;
+  height: 800px;
+  padding: 0px;
+  margin: 0px;
+}
