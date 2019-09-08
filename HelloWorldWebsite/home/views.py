@@ -119,9 +119,8 @@ class Home(generic.DetailView):
             except:
                 print("Object Already Exists")
 
-
+        all_artists = Artist.objects.all()
 
         return render(request, "home/artist.html", {
-            'Artist': Q,
+            'Artists': all_artists,
         })
-
